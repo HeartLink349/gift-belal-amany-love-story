@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تأمين وتجهيز التجربة | HeartLink</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #ec4899;
+            --dark: #020617;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        html, body {
+            font-family: 'Cairo', sans-serif;
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
+            background-color: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: fixed;
+            inset: 0;
+            touch-action: none;
+            perspective: 1200px;
+        }
+
+        /* الكانفاس الخاص بالخلفية التفاعلية */
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* إضاءة نيون متوهجة خلف الكارت */
+        .ambient-glow {
+            position: absolute;
+            width: min(80vw, 320px);
+            height: min(80vw, 320px);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(236, 72, 153, 0.2) 50%, transparent 70%);
+            filter: blur(50px);
+            z-index: 1;
+            animation: pulseGlow 4s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.95); opacity: 0.6; }
+            100% { transform: scale(1.15); opacity: 1; }
+        }
+
+        /* حاوية الكارت بثبات تام على جميع الشاشات */
+        .tilt-wrapper {
+            position: relative;
+            z-index: 10;
+            width: calc(100vw - 32px);
+            max-width: 440px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+        }
+
+        /* تصميم الكارت الزجاجي بمقاسات ثابتة وموزونة */
+        .glass-panel {
+            position: relative;
+            width: 100%;
+            padding: clamp(35px, 7vh, 55px) 20px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(2, 6, 23, 0.92) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.8),
+                inset 0 2px 2px rgba(255, 255, 255, 0.08),
+                0 0 40px rgba(59, 130, 246, 0.12),
+                0 0 60px rgba(236, 72, 153, 0.08);
+            text-align: center;
+            overflow: hidden;
+            transform: translateZ(20px);
+        }
+
+        /* لمعة الإضاءة المتحركة */
+        .glare {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        /* قلب سيبراني */
+        .cyber-heart-container {
+            position: relative;
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 28px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .ring-1, .ring-2 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+        }
+
+        .ring-1 {
+            border-top-color: var(--primary);
+            border-bottom-color: var(--secondary);
+            animation: scan 2s linear infinite;
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));
+        }
+
+        .ring-2 {
+            width: 75%;
+            height: 75%;
+            border-left-color: var(--secondary);
+            border-right-color: var(--primary);
+            animation: scan 1.5s linear infinite reverse;
+            filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.4));
+        }
+
+        .heart-core {
+            font-size: 26px;
+            animation: heartbeat 1.2s infinite;
+            filter: drop-shadow(0 0 12px rgba(236, 72, 153, 0.7));
+        }
+
+        @keyframes scan { 100% { transform: rotate(360deg); } }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.25); }
+        }
+
+        /* العنوان في سطر واحد ثابت دائمًا */
+        h1 {
+            color: #ffffff;
+            font-size: clamp(1.15rem, 5.2vw, 1.65rem);
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            margin-bottom: 14px;
+            height: 38px;
+            line-height: 38px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* حاوية الآلة الكاتبة بارتفاع وعرض ثابتين لمنع أي اهتزاز */
+        .typewriter-container {
+            height: 36px;
+            margin-bottom: 26px;
+            padding: 0 4px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .typewriter-text {
+            color: #94a3b8;
+            font-size: clamp(0.68rem, 3.5vw, 0.98rem);
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2.5px;
+            height: clamp(13px, 3.8vw, 17px);
+            background-color: var(--primary);
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+            margin-right: 3px;
+            flex-shrink: 0;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(59, 130, 246, 0.35), rgba(236, 72, 153, 0.35), transparent);
+            margin: 0 auto 26px auto;
+            width: 75%;
+        }
+
+        .signature-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 40px;
+        }
+
+        .signature-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2rem, 7vw, 2.4rem);
+            background: linear-gradient(to right, #38bdf8, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
+            line-height: 1;
+            direction: ltr;
+        }
+
+        .badge-3d {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 5px 15px rgba(59, 130, 246, 0.5));
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particleCanvas"></canvas>
+    <div class="ambient-glow"></div>
+
+    <div class="tilt-wrapper" id="tiltWrapper">
+        <div class="glass-panel" id="glassPanel">
+            <div class="glare" id="glare"></div>
+            
+            <div class="content-wrapper">
+                <div class="cyber-heart-container">
+                    <div class="ring-1"></div>
+                    <div class="ring-2"></div>
+                    <div class="heart-core">❤️</div>
+                </div>
+                
+                <h1>❤️ جارٍ تجهيز مفاجأتك...</h1>
+                
+                <div class="typewriter-container">
+                    <span class="typewriter-text" id="typeText"></span><span class="cursor"></span>
+                </div>
+                
+                <div class="divider"></div>
+
+                <div class="signature-section">
+                    <span class="signature-text">HeartLink</span>
+                    <svg class="badge-3d" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="blue3d" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#38BDF8" />
+                                <stop offset="50%" stop-color="#2563EB" />
+                                <stop offset="100%" stop-color="#1E3A8A" />
+                            </linearGradient>
+                            <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FCD34D" />
+                                <stop offset="100%" stop-color="#D97706" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M12 1L14.59 4.34L18.7 3.86L19.83 7.82L23.46 9.69L21.78 13.43L23.16 17.26L19.26 18.67L18.33 22.61L14.28 21.75L12 24L9.72 21.75L5.67 22.61L4.74 18.67L0.84 17.26L2.22 13.43L0.54 9.69L4.17 7.82L5.3 3.86L9.41 4.34L12 1Z" fill="url(#blue3d)"/>
+                        <path d="M12 3L14.07 5.67L17.36 5.28L18.26 8.45L21.17 9.94L19.82 12.94L20.93 16L17.8 17.13L17.06 20.28L13.82 19.6L12 21.4L10.18 19.6L6.94 20.28L6.2 17.13L3.07 16L4.18 12.94L2.83 9.94L5.74 8.45L6.64 5.28L9.93 5.67L12 3Z" fill="url(#blue3d)" stroke="url(#gold)" stroke-width="1"/>
+                        <path d="M7.5 12.5L10.5 15.5L16.5 8.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. تأثير الآلة الكاتبة ---
+        const phrases = [
+            "متقلقش... مش بنطبخ مكرونة 😂",
+            "إحنا بس بنرتب المفاجأة عشان متتبهدلش 😂❤",
+            "بنعلق شوية حب على الحيطان... استنى ثانية 😂",
+            "استنى ثانية... القلب بيعمل Update 💙",
+            "لو حد سألك مستني إيه قوله: مستني السعادة 😂",
+            "المفاجأة بتلبس هدومها وجاية حالًا ✨",
+            "لو رمشت ممكن تفوتك المفاجأة 👀",
+            "قربنا... متقفلش الصفحة بالله عليك 😂"
+        ];
+        
+        let phraseIndex = 0;
+        let letterIndex = 0;
+        let isDeleting = false;
+        const textElement = document.getElementById('typeText');
+        
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.innerText = currentPhrase.substring(0, letterIndex - 1);
+                letterIndex--;
+            } else {
+                textElement.innerText = currentPhrase.substring(0, letterIndex + 1);
+                letterIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 30 : 60;
+            
+            if (!isDeleting && letterIndex === currentPhrase.length) {
+                typeSpeed = 2500; 
+                isDeleting = true;
+            } else if (isDeleting && letterIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+            
+            setTimeout(typeWriter, typeSpeed);
+        }
+        typeWriter();
+
+        // --- 2. تأثير الـ 3D الموزون (بدون تحريك الكارت من مكانه) ---
+        const wrapper = document.getElementById('tiltWrapper');
+        const panel = document.getElementById('glassPanel');
+        const glare = document.getElementById('glare');
+
+        function handleTilt(clientX, clientY) {
+            const xAxis = Math.min(Math.max((window.innerWidth / 2 - clientX) / 35, -10), 10);
+            const yAxis = Math.min(Math.max((window.innerHeight / 2 - clientY) / 35, -10), 10);
+            wrapper.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            
+            const rect = panel.getBoundingClientRect();
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+            glare.style.left = `${x}px`;
+            glare.style.top = `${y}px`;
+            glare.style.opacity = '1';
+        }
+
+        function resetTilt() {
+            wrapper.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            wrapper.style.transition = `transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)`;
+            glare.style.opacity = '0';
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            wrapper.style.transition = `none`;
+            handleTilt(e.clientX, e.clientY);
+        });
+        document.addEventListener('mouseleave', resetTilt);
+
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                wrapper.style.transition = `none`;
+                handleTilt(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+        document.addEventListener('touchend', resetTilt);
+
+        // --- 3. خلفية الجزيئات التفاعلية الملونة ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        setCanvasSize();
+
+        const particleColors = ['#3b82f6', '#ec4899', '#38bdf8', '#f472b6'];
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 11000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = Math.random() * (canvas.width - size * 4) + size * 2;
+                let y = Math.random() * (canvas.height - size * 4) + size * 2;
+                let directionX = (Math.random() * 1.4) - 0.7;
+                let directionY = (Math.random() * 1.4) - 0.7;
+                let color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let dx = particlesArray[a].x - particlesArray[b].x;
+                    let dy = particlesArray[a].y - particlesArray[b].y;
+                    let distance = dx * dx + dy * dy;
+                    if (distance < (canvas.width / 9) * (canvas.height / 9)) {
+                        let opacityValue = Math.max(0, 1 - (distance / 11000));
+                        ctx.strokeStyle = (a % 2 === 0) 
+                            ? `rgba(59, 130, 246, ${opacityValue * 0.55})` 
+                            : `rgba(236, 72, 153, ${opacityValue * 0.55})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            setCanvasSize();
+            init();
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
