@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
+<head> 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>بلال &amp; أماني ♥🙈</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,9 +43,107 @@ body::before{
   opacity:.28;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
-.wrap{max-width:760px;margin:0 auto;padding:0 20px 135px}
+.wrap{max-width:760px;margin:0 auto;padding:18px 20px 145px}
 h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
 .hand{font-family:"Caveat",cursive;font-size:1.35em;letter-spacing:.3px}
+
+/* ===== شريط فصول النوتة العلوي ===== */
+.notebook-tabs{
+  position:sticky;
+  top:10px;
+  z-index:85;
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:8px 10px;
+  margin-bottom:14px;
+  background:rgba(251,247,238,.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--line);
+  border-radius:999px;
+  box-shadow:0 10px 26px rgba(58,46,38,.12);
+  scrollbar-width:none;
+}
+.notebook-tabs::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex:1 0 auto;
+  border:0;
+  background:transparent;
+  color:var(--ink-soft);
+  font-family:"Marhey",cursive;
+  font-size:13.5px;
+  font-weight:700;
+  padding:7px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:all .25s ease;
+  white-space:nowrap;
+}
+.tab-btn.active{
+  background:var(--coral);
+  color:#FFF6EC;
+  box-shadow:0 4px 12px rgba(224,122,95,.35);
+  transform:translateY(-1px);
+}
+
+/* ===== نظام الصفحات المستقلة ===== */
+.book-page{
+  display:none;
+  animation:pageFlipIn .48s cubic-bezier(.22,.9,.3,1) forwards;
+}
+.book-page.active{
+  display:block;
+}
+@keyframes pageFlipIn{
+  from{opacity:0;transform:translateY(16px) scale(.985)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* ===== أزرار التقليب أسفل كل صفحة ===== */
+.page-pager{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:42px;
+  padding-top:20px;
+  border-top:2px dashed var(--line);
+}
+.pager-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--ink);
+  font-family:"Marhey",cursive;
+  font-size:15px;
+  font-weight:700;
+  padding:11px 22px;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(58,46,38,.1);
+  transition:all .25s ease;
+}
+.pager-btn.next{
+  background:var(--coral);
+  color:#FFF6EC;
+  border-color:var(--coral);
+  box-shadow:0 8px 22px rgba(224,122,95,.34);
+}
+.pager-btn:hover{
+  transform:translateY(-2px);
+}
+.pager-btn:active{
+  transform:scale(.96);
+}
+.page-indicator{
+  font-family:"Caveat","Marhey",cursive;
+  font-size:16px;
+  color:var(--ink-soft);
+  font-weight:700;
+}
 
 /* ===== washi tape ===== */
 .tape{position:absolute;width:118px;height:30px;background:var(--tape);
@@ -57,29 +154,55 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
 .tape.tl{top:-14px;right:12%;transform:rotate(-7deg)}
 .tape.tr{top:-14px;left:12%;transform:rotate(6deg)}
 
-/* ===== cover ===== */
-.cover{position:relative;padding:66px 0 40px;text-align:center}
+/* ===== واجهة النوتة مع الصورة 13 ===== */
+.cover{position:relative;padding:28px 0 26px;text-align:center}
 .cover-card{position:relative;background:var(--card);border:1px solid var(--line);
-  border-radius:3px;padding:52px 28px 44px;
+  border-radius:3px;padding:42px 24px 36px;
   box-shadow:0 14px 34px rgba(58,46,38,.13), 0 2px 0 rgba(255,255,255,.7) inset;
-  opacity:0;transform:translateY(10px) rotate(-.7deg);
-  animation:coverIn .55s cubic-bezier(.22,.9,.3,1) .05s forwards}
-@keyframes coverIn{to{opacity:1;transform:translateY(0) rotate(-.7deg)}}
+  transform:rotate(-.7deg)}
+.cover-photo-pol{
+  width:155px;
+  margin:0 auto 16px;
+  background:#fff;
+  padding:8px 8px 6px;
+  border-radius:3px;
+  box-shadow:0 10px 24px rgba(58,46,38,.22);
+  transform:rotate(-2.5deg);
+  border:1px solid var(--line);
+}
+.cover-photo-frame{
+  width:100%;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:2px;
+  background:#E9C6B7;
+}
+.cover-photo-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.cover-photo-cap{
+  font-family:"Caveat","Marhey",cursive;
+  font-size:14px;
+  font-weight:700;
+  color:var(--coral);
+  padding-top:4px;
+}
 .badge{display:inline-block;font-family:"Caveat","Marhey",cursive;font-size:20px;
   background:var(--mustard);color:#3A2E26;padding:4px 20px;border-radius:20px;
-  transform:rotate(2deg);margin-bottom:16px;font-weight:700}
-.cover h1{font-size:clamp(36px,8.5vw,62px);letter-spacing:-1px}
+  transform:rotate(2deg);margin-bottom:14px;font-weight:700}
+.cover h1{font-size:clamp(34px,8.5vw,58px);letter-spacing:-1px}
 .cover h1 em{font-style:normal;color:var(--coral);position:relative}
 .cover h1 em::after{content:"";position:absolute;right:0;left:0;bottom:6px;height:9px;
   background:rgba(224,122,95,.24);border-radius:6px;z-index:-1}
 .cover p{color:var(--ink-soft);max-width:46ch;margin:14px auto 0}
 
 /* ===== heart highlights (الستوري العلوي) ===== */
-.hl-strip{display:flex;gap:15px;overflow-x:auto;padding:30px 2px 16px;
+.hl-strip{display:flex;gap:15px;overflow-x:auto;padding:20px 2px 16px;
   scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  scroll-snap-type:x proximity;
-  opacity:0;animation:hlStripIn .55s cubic-bezier(.22,.9,.3,1) .4s forwards}
-@keyframes hlStripIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  scroll-snap-type:x proximity}
 .hl-strip::-webkit-scrollbar{display:none}
 .hl{flex:0 0 auto;width:82px;background:none;border:0;padding:0;cursor:pointer;
   font:inherit;color:inherit;text-align:center;scroll-snap-align:center;
@@ -93,8 +216,9 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
 .hl.seen .hl-frame{background:#E2D6C2}
 .hl-img{position:absolute;inset:4px;overflow:hidden;
   clip-path:path("M37 66.5 C37 66.5 3 46 3 22 C3 9 12.5 1 23 1 C30 1 35 5 37 9.5 C39 5 44 1 51 1 C61.5 1 71 9 71 22 C71 46 37 66.5 37 66.5 Z")}
-.hl-img .ph{width:100%;height:100%}
-.hl b{display:block;font-size:12.5px;font-weight:500;margin-top:5px;color:var(--ink-soft);
+.hl-img .ph{width:100%;height:100%;position:relative}
+.hl-img img{width:100%;height:100%;object-fit:cover;display:block}
+.hl b{display:block;font-size:12.5px;font-weight:600;margin-top:5px;color:var(--ink-soft);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ===== story viewer ===== */
@@ -113,13 +237,14 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
   display:flex;align-items:center;gap:9px;color:#fff}
 .vhead .mini{width:30px;height:28px;flex:0 0 auto;
   clip-path:path("M15 27 C15 27 1 19 1 9.5 C1 4 5 1 9.5 1 C12.5 1 14 3 15 5 C16 3 17.5 1 20.5 1 C25 1 29 4 29 9.5 C29 19 15 27 15 27 Z")}
-.vhead b{font-size:14px;font-weight:500;flex:1;
+.vhead b{font-size:14px;font-weight:600;flex:1;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .vhead button{background:none;border:0;color:#fff;font-size:24px;cursor:pointer;
   line-height:1;padding:0 4px}
-.slide{position:absolute;inset:0}
-.slide::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.42) 0 22%,transparent 46%)}
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#2B211A}
+.slide img{width:100%;height:100%;object-fit:cover;display:block}
+.slide::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.45) 0 20%,transparent 45%)}
 .tapzone{position:absolute;top:0;bottom:0;width:34%;z-index:5;cursor:pointer;
   background:none;border:0;-webkit-tap-highlight-color:transparent}
 .tapzone.r{right:0}.tapzone.l{left:0}
@@ -128,19 +253,13 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
 .journey{position:relative;padding:6px 0}
 .journey::before{content:'';position:absolute;top:8px;bottom:8px;right:19px;width:0;
   border-right:2px dashed rgba(58,46,38,.22)}
-.j-item{position:relative;padding-right:52px;margin-bottom:24px;opacity:0;
-  transform:translateX(24px) translateY(12px);
-  transition:opacity .55s cubic-bezier(.22,.9,.3,1),transform .65s cubic-bezier(.22,.9,.3,1)}
-.j-item.in{opacity:1;transform:none}
+.j-item{position:relative;padding-right:52px;margin-bottom:24px}
 .j-item:last-child{margin-bottom:0}
 .j-item::before{content:'♡';position:absolute;top:14px;right:5px;
   width:29px;height:29px;display:flex;align-items:center;justify-content:center;
   font-size:14px;color:var(--coral);background:var(--card);
   border:2px solid var(--coral);border-radius:50%;
-  box-shadow:0 0 0 4px rgba(224,122,95,.16);z-index:2;
-  transform:scale(0) rotate(-40deg);
-  transition:transform .5s cubic-bezier(.34,1.6,.5,1) .12s}
-.j-item.in::before{transform:scale(1) rotate(0)}
+  box-shadow:0 0 0 4px rgba(224,122,95,.16);z-index:2}
 .j-card{background:var(--card);border:1px solid var(--line);border-radius:14px;
   padding:15px 17px 13px;box-shadow:0 10px 24px rgba(58,46,38,.09);
   transition:transform .3s ease,box-shadow .3s ease}
@@ -148,15 +267,10 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
 .j-card::before{content:'"';font-family:"Caveat",cursive;font-size:2.3em;
   color:var(--tape);line-height:0;position:relative;top:12px;margin-left:4px}
 .j-text{font-family:"Baloo Bhaijaan 2",sans-serif;font-weight:600;font-size:1.05em;line-height:1.65;display:inline}
-.j-text .w{display:inline-block;opacity:0;transform:translateY(9px);filter:blur(3px);
-  transition:opacity .42s ease,transform .42s cubic-bezier(.22,.9,.3,1),filter .42s ease}
-.j-item.in .j-text .w{opacity:1;transform:translateY(0);filter:blur(0)}
 .j-date{display:inline-flex;align-items:center;gap:5px;margin-top:10px;
   background:rgba(226,199,120,.35);border:1px solid var(--line);border-radius:20px;
   padding:3px 12px;font-size:.78em;font-weight:600;color:var(--ink);
-  letter-spacing:.4px;white-space:nowrap;opacity:0;transform:translateY(8px);
-  transition:opacity .5s ease,transform .5s ease}
-.j-item.in .j-date{opacity:1;transform:translateY(0)}
+  letter-spacing:.4px;white-space:nowrap}
 @media (max-width:480px){
   .journey::before{right:16px}
   .j-item{padding-right:46px;margin-bottom:20px}
@@ -165,21 +279,10 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
   .j-text{font-size:.98em}
 }
 
-/* ===== ظهور عام بالتمرير ===== */
-.rv{opacity:0;transform:translateY(24px);
-  transition:opacity .6s cubic-bezier(.22,.9,.3,1),transform .65s cubic-bezier(.22,.9,.3,1)}
-.rv.in{opacity:1;transform:translateY(0)}
-@media (prefers-reduced-motion:reduce){
-  .rv,.j-item,.j-text .w{transform:none !important;filter:none !important}
-  .j-item::before{transform:scale(1) rotate(0) !important}
-  .cover-card{animation:none !important;opacity:1 !important;transform:rotate(-.7deg) !important}
-  .hl-strip{animation:none !important;opacity:1 !important;transform:none !important}
-}
-
 /* ===== section head ===== */
-.sec{margin-top:64px;position:relative}
+.sec{margin-top:34px;position:relative}
 .sec-h{display:flex;align-items:center;gap:12px;margin-bottom:22px}
-.sec-h h2{font-size:27px}
+.sec-h h2{font-size:26px}
 .sec-h i{flex:1;height:1px;background:var(--line)}
 .pin{width:13px;height:13px;border-radius:50%;background:var(--coral);
   box-shadow:0 0 0 3px rgba(224,122,95,.22)}
@@ -229,15 +332,11 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
   border-radius:2px;padding:9px;
   box-shadow:0 8px 20px rgba(58,46,38,.17)}
 .face .ph{height:100%;border-radius:1px;display:flex;align-items:center;
-  justify-content:center;font-family:"Marhey";font-size:30px;color:rgba(255,255,255,.85)}
-.back{transform:rotateY(180deg);background:var(--card);padding:20px 16px;
-  display:flex;flex-direction:column;justify-content:center;text-align:center;gap:8px}
-.back .d{font-family:"Baloo Bhaijaan 2",sans-serif;font-weight:600;font-size:12.5px;
-  color:var(--coral);letter-spacing:.3px}
-.back .t{font-family:"Marhey","Caveat",cursive;font-size:21px;line-height:1.5;color:var(--ink);
-  overflow-wrap:anywhere;padding-bottom:2px;
-  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;
-  line-clamp:6;overflow:hidden}
+  justify-content:center;font-family:"Marhey";font-size:30px;color:rgba(255,255,255,.85);overflow:hidden}
+.back{transform:rotateY(180deg);background:var(--card);padding:20px 14px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.back .t{font-family:"Marhey",cursive;font-size:18px;font-weight:700;line-height:1.55;color:var(--coral);
+  overflow-wrap:anywhere;padding-bottom:2px}
 .hint{text-align:center;font-family:"Caveat","Baloo Bhaijaan 2",cursive;font-size:19px;
   color:var(--ink-soft);margin-top:18px}
 
@@ -255,7 +354,7 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
 .vid-pol:nth-child(even) .v-tape{background:var(--tape-2);transform:translateX(-50%) rotate(2deg)}
 .vid-frame{width:100%;border-radius:2px;overflow:hidden;background:#1E1611;aspect-ratio:9/14;max-height:380px}
 .vid-frame video{width:100%;height:100%;object-fit:cover;display:block;background:#1E1611}
-.vid-cap{text-align:center;font-family:"Marhey","Caveat",cursive;font-size:15px;color:var(--coral);margin-top:10px;font-weight:700}
+.vid-cap{text-align:center;font-family:"Marhey","Caveat",cursive;font-size:16px;color:var(--coral);margin-top:10px;font-weight:700}
 
 /* ===== cassette ===== */
 .tape-player{background:#2F2A26;border-radius:14px;padding:22px;color:#F4EDDF;
@@ -377,12 +476,11 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
 .final-gift-card{display:none;margin-top:18px;background:var(--card);border:2px dashed var(--coral);
   border-radius:14px;padding:24px 20px;box-shadow:0 14px 32px rgba(58,46,38,.12);
   position:relative;text-align:center;line-height:1.9;font-weight:600;color:var(--ink)}
-.final-gift-card.open{display:block;animation:coverIn .5s ease forwards}
+.final-gift-card.open{display:block;animation:pageFlipIn .5s ease forwards}
 .final-gift-card p{white-space:pre-line;font-size:16.5px}
-.final-gift-card .inner-sep{width:50%;height:1px;background:var(--line);margin:16px auto}
 
 /* ===== story card ===== */
-.share-zone{text-align:center;margin-top:54px}
+.share-zone{text-align:center;margin-top:36px}
 .share-btn{background:var(--mustard);color:#3A2E26;border:0;border-radius:28px;
   padding:13px 28px;cursor:pointer;font-family:"Baloo Bhaijaan 2";font-size:16px;
   font-weight:700;box-shadow:0 8px 20px rgba(227,167,47,.32);transition:.2s}
@@ -411,29 +509,45 @@ h1,h2,h3{font-family:"Marhey",cursive;font-weight:700;line-height:1.35}
 #cardCanvas{display:none}
 .media-ph{background:var(--paper-2)}
 img.ph-img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
-.hl-img img{width:100%;height:100%;object-fit:cover;display:block}
 .disc .ph img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* ===== local password gate ===== */
 body.gate-locked{height:100vh;overflow:hidden}
 .password-gate{position:fixed;inset:0;z-index:300;display:flex;justify-content:center;align-items:center;padding:max(16px,env(safe-area-inset-top)) 18px max(16px,env(safe-area-inset-bottom));background:#E9E0CD;background-image:radial-gradient(circle at 16% 14%,rgba(224,122,95,.13) 0 28%,transparent 60%),radial-gradient(circle at 84% 80%,rgba(131,161,123,.13) 0 26%,transparent 58%),repeating-linear-gradient(0deg,transparent 0 27px,rgba(58,46,38,.04) 27px 28px);transition:opacity .45s ease,visibility .45s ease}
 .password-gate.off{opacity:0;visibility:hidden;pointer-events:none}
-.gate-book{position:relative;display:flex;width:min(340px,88vw);min-height:min(448px,88vh);margin:auto;transition:opacity .45s ease,transform .45s ease}
+.gate-book{position:relative;display:flex;width:min(345px,90vw);min-height:min(470px,90vh);margin:auto;transition:opacity .45s ease,transform .45s ease}
 .gate-book.leaving{opacity:0;transform:scale(.97)}
 .gate-book.shake{animation:gateShakeBook .5s ease}
 @keyframes gateShakeBook{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px) rotate(-.6deg)}40%{transform:translateX(8px) rotate(.6deg)}60%{transform:translateX(-6px)}80%{transform:translateX(5px)}}
-.gate-cover{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;color:#FFF6EC;padding:clamp(16px,4.5vh,24px) clamp(16px,5vw,24px) clamp(14px,3vh,18px);border-radius:4px 14px 14px 4px;background:linear-gradient(150deg,#C96A50,#E07A5F 52%,#D46B4F);box-shadow:0 22px 50px rgba(58,46,38,.34),inset 0 0 0 1px rgba(255,255,255,.16)}
+.gate-cover{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;color:#FFF6EC;padding:clamp(14px,3.5vh,22px) clamp(16px,5vw,24px) clamp(14px,3vh,18px);border-radius:4px 14px 14px 4px;background:linear-gradient(150deg,#C96A50,#E07A5F 52%,#D46B4F);box-shadow:0 22px 50px rgba(58,46,38,.34),inset 0 0 0 1px rgba(255,255,255,.16)}
 .gate-cover::before{content:'';position:absolute;top:0;bottom:0;right:0;width:19px;border-radius:4px 0 0 4px;background:linear-gradient(90deg,rgba(0,0,0,.3),transparent)}
-.gate-head{flex:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:6px 0;position:relative;z-index:2}
-.gate-snap{flex:0 0 auto;background:#fff;padding:7px 7px 0;border-radius:2px;transform:rotate(-3deg);box-shadow:0 8px 18px rgba(58,46,38,.3);margin-bottom:4px}
-.gate-ph{width:clamp(70px,26vw,98px);aspect-ratio:1.22;overflow:hidden;border-radius:1px;background:linear-gradient(140deg,#E9C6B7,#D9A08C)}
-.gate-ph img{width:100%;height:100%;object-fit:cover;display:block}.gate-cp{font-family:'Caveat',cursive;font-size:15px;color:#6F6055;padding:2px 0 4px}
-.gate-cover h1,.gate-cover .gate-sub{max-width:100%;overflow-wrap:anywhere;word-break:break-word}.gate-cover h1{font-family:'Marhey',cursive;font-weight:700;font-size:clamp(21px,6.2vw,29px);line-height:1.45;padding-bottom:2px}.gate-sub{font-family:'Baloo Bhaijaan 2','Caveat',cursive;font-size:clamp(15px,4.2vw,18px);line-height:1.5;opacity:.92;padding-bottom:2px}
-.gate-band{position:relative;flex:0 0 auto;width:100%;height:54px;margin:clamp(8px,2vh,16px) 0 clamp(10px,2.4vh,18px)}
-.gate-strap{position:absolute;top:50%;left:clamp(-32px,-5vw,-24px);right:clamp(-32px,-5vw,-24px);height:19px;z-index:2;border-radius:2px;transform:translateY(-50%) rotate(-1deg);background:linear-gradient(180deg,#8A5B45,#6E4634);box-shadow:0 3px 7px rgba(0,0,0,.26);transition:transform .8s cubic-bezier(.5,.05,.2,1),opacity .6s ease .25s}.gate-book.unlocked .gate-strap{transform:translateY(-50%) rotate(-1deg) scaleX(0);opacity:0}
-.gate-lock{position:absolute;top:50%;left:50%;width:50px;z-index:3;transform:translate(-50%,-50%);transition:transform .85s cubic-bezier(.4,.1,.2,1),opacity .5s ease .4s}.gate-book.unlocked .gate-lock{transform:translate(-50%,calc(-50% + 34px)) rotate(-24deg);opacity:0}.gate-shackle{width:27px;height:20px;margin:0 auto -5px;border:5px solid #C79A3E;border-bottom:0;border-radius:14px 14px 0 0;transform-origin:right bottom;transition:transform .5s cubic-bezier(.5,-.4,.3,1.5)}.gate-book.unlocked .gate-shackle{transform:rotate(-42deg) translateY(-4px)}.gate-lock-body{width:47px;height:37px;margin:0 auto;border-radius:7px;background:linear-gradient(160deg,#E0B85A,#C79A3E 55%,#8E6C22);box-shadow:inset 0 -3px 5px rgba(0,0,0,.25),0 4px 9px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}.gate-lock-body i{width:7px;height:7px;border-radius:50%;background:#6B4E12;box-shadow:0 6px 0 -1.5px #6B4E12}
-.gate-form{flex:0 0 auto;width:100%;position:relative;z-index:4}.gate-row{position:relative}.gate-row input{width:100%;height:46px;border:0;border-radius:23px;padding:0 18px 0 50px;font-family:'Caveat',cursive;font-size:23px;font-weight:600;color:#3A2E26;text-align:center;letter-spacing:.5px;background:rgba(255,255,255,.96);outline:none;appearance:none;box-shadow:inset 0 1px 3px rgba(58,46,38,.18);transition:box-shadow .2s ease}.gate-row input:focus{box-shadow:inset 0 1px 3px rgba(58,46,38,.18),0 0 0 3px rgba(255,255,255,.5)}.gate-row input::placeholder{color:#B9AA9C;font-size:19px;font-weight:500;letter-spacing:0}.gate-key{position:absolute;left:4px;top:4px;width:38px;height:38px;border:0;border-radius:50%;cursor:pointer;background:#E07A5F;font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 7px rgba(58,46,38,.26);transition:transform .18s ease}.gate-key:hover{transform:scale(1.07)}.gate-key:active{transform:scale(.94)}.gate-error{min-height:22px;margin-top:6px;font-family:'Baloo Bhaijaan 2',sans-serif;font-size:14px;line-height:1.3;color:#FFE2DC;overflow-wrap:anywhere}.gate-error b{display:inline-block;max-width:100%;padding:2px 14px;border-radius:14px;font-weight:500;background:rgba(120,30,22,.42)}
-@media (max-height:560px){.gate-snap{display:none}.gate-band{height:46px}}
+.gate-head{flex:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:4px 0;position:relative;z-index:2}
+.gate-snap{flex:0 0 auto;background:#fff;padding:7px 7px 2px;border-radius:3px;transform:rotate(-3deg);box-shadow:0 10px 22px rgba(58,46,38,.35);margin-bottom:6px;display:block !important}
+.gate-ph{width:112px;height:112px;overflow:hidden;border-radius:2px;background:#E9C6B7}
+.gate-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.gate-cp{font-family:'Caveat',cursive;font-size:15px;font-weight:700;color:#3A2E26;padding:3px 0 2px}
+.gate-cover h1,.gate-cover .gate-sub{max-width:100%;overflow-wrap:anywhere;word-break:break-word}
+.gate-cover h1{font-family:'Marhey',cursive;font-weight:700;font-size:clamp(21px,6vw,28px);line-height:1.4;padding-bottom:2px}
+.gate-sub{font-family:'Baloo Bhaijaan 2',sans-serif;font-size:clamp(14px,3.8vw,16px);line-height:1.4;opacity:.95}
+.gate-band{position:relative;flex:0 0 auto;width:100%;height:50px;margin:8px 0 12px}
+.gate-strap{position:absolute;top:50%;left:clamp(-32px,-5vw,-24px);right:clamp(-32px,-5vw,-24px);height:19px;z-index:2;border-radius:2px;transform:translateY(-50%) rotate(-1deg);background:linear-gradient(180deg,#8A5B45,#6E4634);box-shadow:0 3px 7px rgba(0,0,0,.26);transition:transform .8s cubic-bezier(.5,.05,.2,1),opacity .6s ease .25s}
+.gate-book.unlocked .gate-strap{transform:translateY(-50%) rotate(-1deg) scaleX(0);opacity:0}
+.gate-lock{position:absolute;top:50%;left:50%;width:50px;z-index:3;transform:translate(-50%,-50%);transition:transform .85s cubic-bezier(.4,.1,.2,1),opacity .5s ease .4s}
+.gate-book.unlocked .gate-lock{transform:translate(-50%,calc(-50% + 34px)) rotate(-24deg);opacity:0}
+.gate-shackle{width:27px;height:20px;margin:0 auto -5px;border:5px solid #C79A3E;border-bottom:0;border-radius:14px 14px 0 0;transform-origin:right bottom;transition:transform .5s cubic-bezier(.5,-.4,.3,1.5)}
+.gate-book.unlocked .gate-shackle{transform:rotate(-42deg) translateY(-4px)}
+.gate-lock-body{width:47px;height:37px;margin:0 auto;border-radius:7px;background:linear-gradient(160deg,#E0B85A,#C79A3E 55%,#8E6C22);box-shadow:inset 0 -3px 5px rgba(0,0,0,.25),0 4px 9px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}
+.gate-lock-body i{width:7px;height:7px;border-radius:50%;background:#6B4E12;box-shadow:0 6px 0 -1.5px #6B4E12}
+.gate-form{flex:0 0 auto;width:100%;position:relative;z-index:4}
+.gate-row{position:relative}
+.gate-row input{width:100%;height:46px;border:0;border-radius:23px;padding:0 18px 0 50px;font-family:'Caveat',cursive;font-size:23px;font-weight:600;color:#3A2E26;text-align:center;letter-spacing:.5px;background:rgba(255,255,255,.96);outline:none;appearance:none;box-shadow:inset 0 1px 3px rgba(58,46,38,.18);transition:box-shadow .2s ease}
+.gate-row input:focus{box-shadow:inset 0 1px 3px rgba(58,46,38,.18),0 0 0 3px rgba(255,255,255,.5)}
+.gate-row input::placeholder{color:#B9AA9C;font-size:19px;font-weight:500;letter-spacing:0}
+.gate-key{position:absolute;left:4px;top:4px;width:38px;height:38px;border:0;border-radius:50%;cursor:pointer;background:#E07A5F;font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 7px rgba(58,46,38,.26);transition:transform .18s ease}
+.gate-key:hover{transform:scale(1.07)}
+.gate-key:active{transform:scale(.94)}
+.gate-error{min-height:22px;margin-top:6px;font-family:'Baloo Bhaijaan 2',sans-serif;font-size:14px;line-height:1.3;color:#FFE2DC;overflow-wrap:anywhere}
+.gate-error b{display:inline-block;max-width:100%;padding:2px 14px;border-radius:14px;font-weight:500;background:rgba(120,30,22,.42)}
 
 /* ===== HeartLink Credit Watermark ===== */
 .heartlink-credit {
@@ -473,16 +587,36 @@ body.gate-locked{height:100vh;overflow:hidden}
 }
 
 </style>
+
+<script>
+window.fixImg = function(img, host, file) {
+  var step = parseInt(img.getAttribute('data-step') || '0', 10);
+  if (step === 0) {
+    img.setAttribute('data-step', '1');
+    img.src = 'https://wsrv.nl/?url=http://' + host + '.top4top.io/' + file;
+  } else if (step === 1) {
+    img.setAttribute('data-step', '2');
+    img.src = 'https://i0.wp.com/' + host + '.top4top.io/' + file;
+  } else if (step === 2) {
+    img.setAttribute('data-step', '3');
+    img.src = 'http://' + host + '.top4top.io/' + file;
+  }
+};
+</script>
 </head>
 <body class="gate-locked">
 
-<!-- بوابة الباسورد بشكل الكتاب المقفول -->
+<!-- ============ بوابة الباسورد الخارجي + صورتها هي بره النوتة ============ -->
 <div class="password-gate" id="passwordGate">
   <form class="gate-book" id="gateBook" autocomplete="off">
     <div class="gate-cover">
       <div class="gate-head">
         <div class="gate-snap">
-          <div class="gate-ph"><img src="https://wsrv.nl/?url=http://b.top4top.io/p_3963pbal21.jpg" alt="" referrerpolicy="no-referrer"></div>
+          <div class="gate-ph">
+            <img src="https://g.top4top.io/p_39631httg1.jpg"
+                 onerror="window.fixImg(this,'g','p_39631httg1.jpg')"
+                 alt="أماني">
+          </div>
           <div class="gate-cp">Belal &amp; Amany ♥🙈</div>
         </div>
         <h1>بلال &amp; أماني ♥🙈</h1>
@@ -505,140 +639,255 @@ body.gate-locked{height:100vh;overflow:hidden}
 
 <div class="wrap">
 
-  <!-- ============ الغلاف ============ -->
-  <div class="cover">
-    <div class="cover-card">
-      <span class="tape tl"></span><span class="tape pink tr"></span>
-      <span class="badge">2026 / 4 / 29 ♥️🙈</span>
-      <h1>بلال &amp; <em>أماني</em></h1>
-      <p>كل لحظة معاكي هي عمر جديد.. نوتة خاصة بتجمع كل تفاصيلنا وذكرياتنا الحلوة سوا ♥️</p>
+  <!-- ============ شريط فصول النوتة العلوي (5 صفحات مستقلة) ============ -->
+  <nav class="notebook-tabs" aria-label="فصول النوتة">
+    <button type="button" class="tab-btn active" data-target="1">١. البداية 📔</button>
+    <button type="button" class="tab-btn" data-target="2">٢. رسايلك 💬</button>
+    <button type="button" class="tab-btn" data-target="3">٣. صورنا 📸</button>
+    <button type="button" class="tab-btn" data-target="4">٤. فيديوهاتنا 🎬</button>
+    <button type="button" class="tab-btn" data-target="5">٥. رسالتي 💌</button>
+  </nav>
+
+  <!-- =================================================================
+       الصفحة الأولى (1): واجهة النوتة بصورتها (الصورة 13) + الاستوري + العداد + التواريخ + الكاسيت
+       ================================================================= -->
+  <div class="book-page active" data-page="1">
+    <div class="cover">
+      <div class="cover-card">
+        <span class="tape tl"></span><span class="tape pink tr"></span>
+        <!-- صورة واجهة النوتة (الصورة 13) -->
+        <div class="cover-photo-pol">
+          <div class="cover-photo-frame">
+            <img src="https://g.top4top.io/p_39631httg1.jpg"
+                 onerror="window.fixImg(this,'g','p_39631httg1.jpg')"
+                 alt="أماني">
+          </div>
+          <div class="cover-photo-cap">عمري كله ♥🙈</div>
+        </div>
+        <span class="badge">2026 / 4 / 29 ♥️🙈</span>
+        <h1>بلال &amp; <em>أماني</em> ♥🙈</h1>
+        <p>كل لحظة معاكي هي عمر جديد.. نوتة خاصة مقسمة فصول بتجمع كل تفاصيلنا وذكرياتنا الحلوة سوا ♥️</p>
+      </div>
+    </div>
+
+    <!-- الاستوريهات -->
+    <div class="hl-strip" id="strip">
+      <button class="hl" type="button" data-idx="0">
+        <div class="hl-shape"><div class="hl-frame"></div><div class="hl-img"><div class="ph" style="background:#E07A5F">
+          <img src="https://b.top4top.io/p_3963pbal21.jpg" onerror="window.fixImg(this,'b','p_3963pbal21.jpg')" alt="">
+        </div></div></div><b>ب ♥️🙈</b>
+      </button>
+
+      <button class="hl" type="button" data-idx="1">
+        <div class="hl-shape"><div class="hl-frame"></div><div class="hl-img"><div class="ph" style="background:#83A17B">
+          <img src="https://d.top4top.io/p_39631vktz1.jpg" onerror="window.fixImg(this,'d','p_39631vktz1.jpg')" alt="">
+        </div></div></div><b>ح ♥️</b>
+      </button>
+
+      <button class="hl" type="button" data-idx="2">
+        <div class="hl-shape"><div class="hl-frame"></div><div class="hl-img"><div class="ph" style="background:#D98CA0">
+          <img src="https://c.top4top.io/p_39638goh31.jpg" onerror="window.fixImg(this,'c','p_39638goh31.jpg')" alt="">
+        </div></div></div><b>ب ♥️</b>
+      </button>
+
+      <button class="hl" type="button" data-idx="3">
+        <div class="hl-shape"><div class="hl-frame"></div><div class="hl-img"><div class="ph" style="background:#E3A72F">
+          <img src="https://e.top4top.io/p_3963jiym11.jpg" onerror="window.fixImg(this,'e','p_3963jiym11.jpg')" alt="">
+        </div></div></div><b>ك ♥️</b>
+      </button>
+
+      <button class="hl" type="button" data-idx="4">
+        <div class="hl-shape"><div class="hl-frame"></div><div class="hl-img"><div class="ph" style="background:#8C7B9E">
+          <img src="https://f.top4top.io/p_3963q2r8w1.jpg" onerror="window.fixImg(this,'f','p_3963q2r8w1.jpg')" alt="">
+        </div></div></div><b>بحبك ♥️🙈</b>
+      </button>
+
+      <button class="hl" type="button" data-idx="5">
+        <div class="hl-shape"><div class="hl-frame"></div><div class="hl-img"><div class="ph" style="background:#6F9BA8">
+          <img src="https://g.top4top.io/p_3963b3jpt1.jpg" onerror="window.fixImg(this,'g','p_3963b3jpt1.jpg')" alt="">
+        </div></div></div><b>نور عيني ✨</b>
+      </button>
+
+      <button class="hl" type="button" data-idx="6">
+        <div class="hl-shape"><div class="hl-frame"></div><div class="hl-img"><div class="ph" style="background:#E07A5F">
+          <img src="https://h.top4top.io/p_3963rzgqu1.jpg" onerror="window.fixImg(this,'h','p_3963rzgqu1.jpg')" alt="">
+        </div></div></div><b>نبض قلبي 😍</b>
+      </button>
+
+      <button class="hl" type="button" data-idx="7">
+        <div class="hl-shape"><div class="hl-frame"></div><div class="hl-img"><div class="ph" style="background:#83A17B">
+          <img src="https://i.top4top.io/p_3963hse8m1.jpg" onerror="window.fixImg(this,'i','p_3963hse8m1.jpg')" alt="">
+        </div></div></div><b>حياتي كلها 🌍</b>
+      </button>
+    </div>
+
+    <!-- العداد -->
+    <section class="sec">
+      <div class="sec-h"><span class="pin"></span><h2>عداد حبنا وتعارفنا ♥🙈</h2><i></i></div>
+      <div class="count" id="counter" data-start="2026-04-29">
+        <div><b id="d">0</b><small>يوم</small></div>
+        <div><b id="h">0</b><small>ساعة</small></div>
+        <div><b id="m">0</b><small>دقيقة</small></div>
+        <div><b id="s">0</b><small>ثانية</small></div>
+      </div>
+      <p class="hint" style="margin-top:14px">من يوم ٢٠٢٦/٤/٢٩ وكل ثانية بتعدي بحبك فيها أكتر من اللي قبلها ♥️</p>
+    </section>
+
+    <!-- التواريخ المميزة -->
+    <section class="sec">
+      <div class="sec-h"><span class="pin"></span><h2>تواريخ محفورة في قلبي</h2><i></i></div>
+      <div class="journey" id="journey"></div>
+    </section>
+
+    <!-- المشغل الموسيقي -->
+    <section class="sec">
+      <div class="tape-player">
+        <div class="tape-label">
+          <div class="disc" id="disc">
+            <div class="ph" id="discPh">
+              <img src="https://f.top4top.io/p_3963q2r8w1.jpg" onerror="window.fixImg(this,'f','p_3963q2r8w1.jpg')" alt="">
+            </div>
+          </div>
+          <div class="tape-meta">
+            <b id="tname"></b>
+            <small id="tnum"></small>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="ctl" id="prev" type="button" aria-label="السابق">‹‹</button>
+          <button class="ctl big" id="play" type="button" aria-label="تشغيل">▶</button>
+          <button class="ctl" id="next" type="button" aria-label="التالي">››</button>
+        </div>
+        <div class="bar" id="bar"><span id="fill"></span></div>
+        <div class="times"><span id="tcur">0:00</span><span id="ttot">0:00</span></div>
+      </div>
+    </section>
+
+    <div class="page-pager">
+      <span class="page-indicator">صفحة ١ من ٥</span>
+      <button type="button" class="pager-btn next" data-goto="2">رسايلك ليا 💬 ⬅️</button>
     </div>
   </div>
 
-  <!-- ============ الهايلايتس (الستوري العلوي للصور) ============ -->
-  <div class="hl-strip" id="strip"></div>
-
-  <!-- ============ العداد ============ -->
-  <section class="sec">
-    <div class="sec-h"><span class="pin"></span><h2>عداد حبنا وتعارفنا</h2><i></i></div>
-    <div class="count" id="counter" data-start="2026-04-29">
-      <div><b id="d">0</b><small>يوم</small></div>
-      <div><b id="h">0</b><small>ساعة</small></div>
-      <div><b id="m">0</b><small>دقيقة</small></div>
-      <div><b id="s">0</b><small>ثانية</small></div>
-    </div>
-    <p class="hint" style="margin-top:14px">من يوم ٢٠٢٦/٤/٢٩ وكل ثانية بتعدي بحبك فيها أكتر من اللي قبلها ♥️</p>
-  </section>
-
-  <!-- ============ الرحلة (التواريخ المميزة) ============ -->
-  <section class="sec">
-    <div class="sec-h"><span class="pin"></span><h2>تواريخ محفورة في قلبي</h2><i></i></div>
-    <div class="journey" id="journey"></div>
-  </section>
-
-  <!-- ============ الشريط (المشغل الموسيقي) ============ -->
-  <section class="sec">
-    <div class="tape-player">
-      <div class="tape-label">
-        <div class="disc" id="disc">
-          <div class="ph" id="discPh">
-            <img src="https://wsrv.nl/?url=http://f.top4top.io/p_3963q2r8w1.jpg" alt="" decoding="async" referrerpolicy="no-referrer">
+  <!-- =================================================================
+       الصفحة الثانية (2): رسايلك ليا ♥
+       ================================================================= -->
+  <div class="book-page" data-page="2">
+    <section class="sec" style="margin-top:14px">
+      <div class="sec-h"><span class="pin"></span><h2>رسايلك ليا ♥🙈</h2><i></i></div>
+      <div class="chat" id="chat">
+        <span class="tape" style="top:-13px;right:16%;transform:rotate(-6deg)"></span>
+        <div class="chat-top">
+          <div class="chat-user">
+            <div class="av">أ</div>
+            <div>
+              <b>أماني حبيبتي ♥️🙈</b>
+              <small>أحلى كلام في الدنيا منك</small>
+            </div>
           </div>
+          <button type="button" class="show-all-chat" id="showAllChatBtn">إظهار كل الرسايل ✨</button>
         </div>
-        <div class="tape-meta">
-          <b id="tname"></b>
-          <small id="tnum"></small>
+        <div id="stream"></div>
+      </div>
+    </section>
+
+    <div class="page-pager">
+      <button type="button" class="pager-btn" data-goto="1">➡️ البداية</button>
+      <span class="page-indicator">صفحة ٢ من ٥</span>
+      <button type="button" class="pager-btn next" data-goto="3">صورنا 📸 ⬅️</button>
+    </div>
+  </div>
+
+  <!-- =================================================================
+       الصفحة الثالثة (3): صورنا الحلوة (بدون تاريخ وبجمل حب مصرية)
+       ================================================================= -->
+  <div class="book-page" data-page="3">
+    <section class="sec" style="margin-top:14px">
+      <div class="sec-h"><span class="pin"></span><h2>ألبوم صورنا الحلوة 📸♥🙈</h2><i></i></div>
+      <p class="hint" style="margin-top:0;margin-bottom:18px">دوسي على أي صورة عشان تقلبيها وتشوفي الكلام العسول اللي وراها ↺</p>
+      <div class="scatter" id="scatter"></div>
+    </section>
+
+    <div class="page-pager">
+      <button type="button" class="pager-btn" data-goto="2">➡️ رسايلك</button>
+      <span class="page-indicator">صفحة ٣ من ٥</span>
+      <button type="button" class="pager-btn next" data-goto="4">فيديوهاتنا 🎬 ⬅️</button>
+    </div>
+  </div>
+
+  <!-- =================================================================
+       الصفحة الرابعة (4): فيديوهاتنا وذكرياتنا (بدون الجملة المحذوفة)
+       ================================================================= -->
+  <div class="book-page" data-page="4">
+    <section class="sec" style="margin-top:14px">
+      <div class="sec-h"><span class="pin"></span><h2>فيديوهاتنا وذكرياتنا 🎬♥️</h2><i></i></div>
+      <div class="vid-grid">
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://k.top4top.io/m_3963vvd0r1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عمري ♥🙈</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://l.top4top.io/m_3963c5i7f1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عيوني ♥</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://a.top4top.io/m_3963bncmd1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">نبض قلبي 😍</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://b.top4top.io/m_39635uleo1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">روحي 💋</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://c.top4top.io/m_39632618u1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">بسبوستي ♥😍</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://h.top4top.io/m_3963kr4yf1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">حياتي كلها ♥🙈</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://i.top4top.io/m_3963n4y2v1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">نور عيني ♥</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://l.top4top.io/m_3963fcuoj1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">فرحة عمري 😍</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://a.top4top.io/m_3963verux1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">قلبي كله 💋</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://g.top4top.io/m_3963hdazf1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">دلوعتي ♥😍</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://f.top4top.io/m_3963b3ogv1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عمري ♥🙈</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://h.top4top.io/m_3963i7z5j1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عيوني ♥</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://i.top4top.io/m_3963g7j4b1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">نبض قلبي 😍</div></div>
+        <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://files.catbox.moe/w17ifp.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">بسبوستي ♥😍</div></div>
+      </div>
+    </section>
+
+    <div class="page-pager">
+      <button type="button" class="pager-btn" data-goto="3">➡️ صورنا</button>
+      <span class="page-indicator">صفحة ٤ من ٥</span>
+      <button type="button" class="pager-btn next" data-goto="5">رسالتي ليكي 💌 ⬅️</button>
+    </div>
+  </div>
+
+  <!-- =================================================================
+       الصفحة الخامسة (5): الرسالة المخربشة + الزر الأخير + كارت الذكرى
+       ================================================================= -->
+  <div class="book-page" data-page="5">
+    <section class="sec" style="margin-top:14px">
+      <div class="sec-h"><span class="pin"></span><h2>رسالتي ليكي 💌♥🙈</h2><i></i></div>
+      <div class="scratch-stage" id="scratchStage">
+        <div class="letter-inner">
+          <div class="salut">إلى نور عيني أماني ♥🙈</div>
+          <div class="body-text">بحبك بكل لحظه وبكل نفس فيا بحبك بعيوني الي مش بتشوف حد غيرك بقلبي الي من ساعت ما عرفك وهوا مش عايز حد غيرك وبحب صوتك بنظراتك بطريقه كلامك بحبك في زعللك و فرحك بحب حتا سكوتك بحبك وانتي معيا من ساعت م دخلتي حياتي بحبك من غير شروط ولا اسباب بحبك علشان انتي انتي لانك الحاجه الحلوه الي ربنا رزقني بيها لانك السند و الونس و الدفا لانك روحي اللي كنت بدور عليها من زمان بحبك وافضل احبك كل يوم اكتر من اليوم اللي قبله وعمري ما ازعل منك ولا هزهق منك ولا ادايق منك علشان انتي نور عيني وبحبككك اوي اوي اوي وافضل احبك لحد اخر عمري ي حياتي❣️🥹🥹🥹😍😍😍😍💞💞🌍🌍🌍🌍💋💋🫂🫂</div>
+        </div>
+        <canvas id="scratchCanvas"></canvas>
+        <div class="scratch-hint" id="scratchHint">
+          <span class="finger">👆</span>
+          <span>امسحي بصباعك هنا عشان تفتحي الرسالة</span>
         </div>
       </div>
-      <div class="controls">
-        <button class="ctl" id="prev" type="button" aria-label="السابق">‹‹</button>
-        <button class="ctl big" id="play" type="button" aria-label="تشغيل">▶</button>
-        <button class="ctl" id="next" type="button" aria-label="التالي">››</button>
-      </div>
-      <div class="bar" id="bar"><span id="fill"></span></div>
-      <div class="times"><span id="tcur">0:00</span><span id="ttot">0:00</span></div>
-    </div>
-  </section>
 
-  <!-- ============ الشات (رسايلك ليا ♥) ============ -->
-  <section class="sec">
-    <div class="sec-h"><span class="pin"></span><h2>رسايلك ليا ♥</h2><i></i></div>
-    <div class="chat" id="chat">
-      <span class="tape" style="top:-13px;right:16%;transform:rotate(-6deg)"></span>
-      <div class="chat-top">
-        <div class="chat-user">
-          <div class="av">أ</div>
-          <div>
-            <b>أماني حبيبتي ♥️🙈</b>
-            <small>أحلى كلام في الدنيا منك</small>
-          </div>
-        </div>
-        <button type="button" class="show-all-chat" id="showAllChatBtn">إظهار كل الرسايل ✨</button>
-      </div>
-      <div id="stream"></div>
-    </div>
-  </section>
-
-  <!-- ============ صور من الدرج (الـ 21 صورة كاملة بتتقلب) ============ -->
-  <section class="sec">
-    <div class="sec-h"><span class="pin"></span><h2>صورنا الحلوة 📸</h2><i></i></div>
-    <div class="scatter" id="scatter"></div>
-    <p class="hint">دوسي على أي صورة عشان تقلبيها وتشوفي الكلام ↺</p>
-  </section>
-
-  <!-- ============ قسم الفيديوهات مع الإيموجي والكلمات المطلوبة ============ -->
-  <section class="sec">
-    <div class="sec-h"><span class="pin"></span><h2>فيديوهاتنا وذكرياتنا 🎬♥️</h2><i></i></div>
-    <div class="vid-grid">
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://k.top4top.io/m_3963vvd0r1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عمري ♥️🙈</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://l.top4top.io/m_3963c5i7f1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عيوني ♥</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://a.top4top.io/m_3963bncmd1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">نبض قلبي 😍</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://b.top4top.io/m_39635uleo1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">روحي 💋</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://c.top4top.io/m_39632618u1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">بسبوستي ♥😍</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://h.top4top.io/m_3963kr4yf1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عمري ♥️🙈</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://i.top4top.io/m_3963n4y2v1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عيوني ♥</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://l.top4top.io/m_3963fcuoj1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">نبض قلبي 😍</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://a.top4top.io/m_3963verux1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">روحي 💋</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://g.top4top.io/m_3963hdazf1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">بسبوستي ♥😍</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://f.top4top.io/m_3963b3ogv1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عمري ♥️🙈</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://h.top4top.io/m_3963i7z5j1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">عيوني ♥</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://i.top4top.io/m_3963g7j4b1.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">نبض قلبي 😍</div></div>
-      <div class="vid-pol"><span class="v-tape"></span><div class="vid-frame"><video class="memory-video" src="https://files.catbox.moe/w17ifp.mp4" controls playsinline preload="metadata"></video></div><div class="vid-cap">روحي 💋</div></div>
-    </div>
-  </section>
-
-  <!-- ============ الرسالة المخربشة (رسالتي ليكي) + زر الرسالة الأخيرة بدون تكرار ============ -->
-  <section class="sec">
-    <div class="sec-h"><span class="pin"></span><h2>رسالتي ليكي 💌</h2><i></i></div>
-    <div class="scratch-stage" id="scratchStage">
-      <div class="letter-inner">
-        <div class="salut">إلى نور عيني أماني ♥️🙈</div>
-        <div class="body-text">بحبك بكل لحظه وبكل نفس فيا بحبك بعيوني الي مش بتشوف حد غيرك بقلبي الي من ساعت ما عرفك وهوا مش عايز حد غيرك وبحب صوتك بنظراتك بطريقه كلامك بحبك في زعللك و فرحك بحب حتا سكوتك بحبك وانتي معيا من ساعت م دخلتي حياتي بحبك من غير شروط ولا اسباب بحبك علشان انتي انتي لانك الحاجه الحلوه الي ربنا رزقني بيها لانك السند و الونس و الدفا لانك روحي اللي كنت بدور عليها من زمان بحبك وافضل احبك كل يوم اكتر من اليوم اللي قبله وعمري ما ازعل منك ولا هزهق منك ولا ادايق منك علشان انتي نور عيني وبحبككك اوي اوي اوي وافضل احبك لحد اخر عمري y حياتي❣️🥹😍😍💞🌍💋🫂</div>
-      </div>
-      <canvas id="scratchCanvas"></canvas>
-      <div class="scratch-hint" id="scratchHint">
-        <span class="finger">👆</span>
-        <span>امسحي بصباعك هنا عشان تفتحي الرسالة</span>
-      </div>
-    </div>
-
-    <!-- الزر الأخير للرسالة الكاملة (بدون تكرار) -->
-    <div class="final-gift-box">
-      <button type="button" class="final-gift-btn" id="finalGiftBtn">رسالة أخيرة ليكي من قلبي 💌♥️</button>
-      <div class="final-gift-card" id="finalGiftCard">
-        <p>انا عمري ما كنت متخيل أن حد يقدر يغير حياتي بالشكل ده
+      <!-- الزر الأخير للرسالة الثانية فقط بدون أي تكرار -->
+      <div class="final-gift-box">
+        <button type="button" class="final-gift-btn" id="finalGiftBtn">رسالة أخيرة ليكي من قلبي 💌♥🙈</button>
+        <div class="final-gift-card" id="finalGiftCard">
+          <p>انا عمري ما كنت متخيل أن حد يقدر يغير حياتي بالشكل ده
 بس وجودك خلاني افهم يعني اي امان ويعني اي حب حقيقي
 انتي اللي غيرتي نظرتي لكل حاجه في الدنيا خلتي كل حاجه
 ليها طعم تاني ولون معاكي بكون انسان تاني بكون اقوي واهدي
 و سعيد بوجودك جنبي انتي اجمل نعمه ربنا رزقني بيها وكل
 مره ببصلك بحس اني ماسك الدنيا كلها في ايدي❤️❤️👥👥👥👥👥🌎🌎</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ بطاقة الستوري ============ -->
-  <div class="share-zone">
-    <button class="share-btn" id="makeCard" type="button">✦ اعملي بطاقة للذكرى</button>
+    <!-- بطاقة الستوري -->
+    <div class="share-zone">
+      <button class="share-btn" id="makeCard" type="button">✦ اعملي بطاقة للذكرى</button>
+    </div>
+
+    <div class="page-pager">
+      <button type="button" class="pager-btn" data-goto="4">➡️ فيديوهاتنا</button>
+      <span class="page-indicator">صفحة ٥ من ٥</span>
+      <button type="button" class="pager-btn next" data-goto="1">أول النوتة 📔 ↺</button>
+    </div>
   </div>
 
 </div>
@@ -646,7 +895,9 @@ body.gate-locked{height:100vh;overflow:hidden}
 <!-- عارض الستوري -->
 <div class="viewer" id="viewer">
   <div class="stage" id="stage">
-    <div class="slide" id="slide"></div>
+    <div class="slide" id="slide">
+      <img id="slideImg" src="" alt="">
+    </div>
     <div class="bars" id="bars"></div>
     <div class="vhead">
       <span class="mini" id="mini"></span>
@@ -665,7 +916,7 @@ body.gate-locked{height:100vh;overflow:hidden}
   <div class="mp-row">
     <div class="mp-disc" id="miniDisc">
       <div class="ph">
-        <img src="https://wsrv.nl/?url=http://f.top4top.io/p_3963q2r8w1.jpg" alt="" decoding="async" referrerpolicy="no-referrer">
+        <img src="https://f.top4top.io/p_3963q2r8w1.jpg" onerror="window.fixImg(this,'f','p_3963q2r8w1.jpg')" alt="">
       </div>
     </div>
     <div class="mp-info">
@@ -698,84 +949,49 @@ body.gate-locked{height:100vh;overflow:hidden}
 </a>
 
 <!-- البيانات الخاصة بـ بلال & أماني -->
-<script type="application/json" id="dHlPhotos">[
-  "https://wsrv.nl/?url=http://b.top4top.io/p_3963pbal21.jpg",
-  "https://wsrv.nl/?url=http://d.top4top.io/p_39631vktz1.jpg",
-  "https://wsrv.nl/?url=http://c.top4top.io/p_39638goh31.jpg",
-  "https://wsrv.nl/?url=http://e.top4top.io/p_3963jiym11.jpg",
-  "https://wsrv.nl/?url=http://f.top4top.io/p_3963q2r8w1.jpg",
-  "https://wsrv.nl/?url=http://g.top4top.io/p_3963b3jpt1.jpg",
-  "https://wsrv.nl/?url=http://h.top4top.io/p_3963rzgqu1.jpg",
-  "https://wsrv.nl/?url=http://i.top4top.io/p_3963hse8m1.jpg"
-]</script>
-<script type="application/json" id="dHlCaps">[
-  "ب ♥️🙈",
-  "ح ♥️",
-  "ب ♥️",
-  "ك ♥️",
-  "بحبك ♥️🙈",
-  "نور عيني ✨",
-  "أجمل صدفة 💗",
-  "حياتي كلها 🌍"
+<script type="application/json" id="dHlList">[
+  {"h":"b","f":"p_3963pbal21.jpg","n":"ب ♥️🙈","c":"#E07A5F"},
+  {"h":"d","f":"p_39631vktz1.jpg","n":"ح ♥️","c":"#83A17B"},
+  {"h":"c","f":"p_39638goh31.jpg","n":"ب ♥️","c":"#D98CA0"},
+  {"h":"e","f":"p_3963jiym11.jpg","n":"ك ♥️","c":"#E3A72F"},
+  {"h":"f","f":"p_3963q2r8w1.jpg","n":"بحبك ♥️🙈","c":"#8C7B9E"},
+  {"h":"g","f":"p_3963b3jpt1.jpg","n":"نور عيني ✨","c":"#6F9BA8"},
+  {"h":"h","f":"p_3963rzgqu1.jpg","n":"نبض قلبي 😍","c":"#E07A5F"},
+  {"h":"i","f":"p_3963hse8m1.jpg","n":"حياتي كلها 🌍","c":"#83A17B"}
 ]</script>
 
-<script type="application/json" id="dPhotos">[
-  "https://wsrv.nl/?url=http://b.top4top.io/p_3963pbal21.jpg",
-  "https://wsrv.nl/?url=http://d.top4top.io/p_39631vktz1.jpg",
-  "https://wsrv.nl/?url=http://c.top4top.io/p_39638goh31.jpg",
-  "https://wsrv.nl/?url=http://e.top4top.io/p_3963jiym11.jpg",
-  "https://wsrv.nl/?url=http://f.top4top.io/p_3963q2r8w1.jpg",
-  "https://wsrv.nl/?url=http://g.top4top.io/p_3963b3jpt1.jpg",
-  "https://wsrv.nl/?url=http://h.top4top.io/p_3963rzgqu1.jpg",
-  "https://wsrv.nl/?url=http://i.top4top.io/p_3963hse8m1.jpg",
-  "https://wsrv.nl/?url=http://j.top4top.io/p_39639zc2i1.jpg",
-  "https://wsrv.nl/?url=http://d.top4top.io/p_3963qsmff1.jpg",
-  "https://wsrv.nl/?url=http://f.top4top.io/p_3963z4ph51.jpg",
-  "https://wsrv.nl/?url=http://e.top4top.io/p_3963sbb1y1.jpg",
-  "https://wsrv.nl/?url=http://g.top4top.io/p_39631httg1.jpg",
-  "https://wsrv.nl/?url=http://j.top4top.io/p_3963si0ua1.jpg",
-  "https://wsrv.nl/?url=http://k.top4top.io/p_3963m98441.jpg",
-  "https://wsrv.nl/?url=http://b.top4top.io/p_39637bx6p1.jpg",
-  "https://wsrv.nl/?url=http://c.top4top.io/p_39633ehfb1.jpg",
-  "https://wsrv.nl/?url=http://e.top4top.io/p_3963s5cg61.jpg",
-  "https://wsrv.nl/?url=http://d.top4top.io/p_3963e12711.jpg",
-  "https://wsrv.nl/?url=http://j.top4top.io/p_3963de6qa1.jpg",
-  "https://wsrv.nl/?url=http://k.top4top.io/p_3963gyf5e1.jpg"
-]</script>
-<script type="application/json" id="dPhotoCaps">[
-  "ب ♥️🙈",
-  "ح ♥️",
-  "ب ♥️",
-  "ك ♥️",
-  "بحبك للأبد ♥️",
-  "أنتي السند والونس والدفا 🫂",
-  "ضحكتك بتنور حياتي كلها ✨",
-  "أحلى صدفة في عمري كله 💗",
-  "ربنا يخليكي ليا وميحرمنيش منك ♥️",
-  "معاكي كل حاجة ليها طعم ولون تاني 🌸",
-  "أنتي روحي اللي كنت بدور عليها 🌍",
-  "كل يوم بحبك أكتر من اللي قبله 💞",
-  "أجمل نعمة ربنا رزقني بيها 🤲♥️",
-  "عيوني مش بتشوف حد غيرك 😍",
-  "وجودك جنبي هو الأمان كله 🤍",
-  "يا أغلى من روحي وعمري كله ♥️",
-  "كل لحظة معاكي بتسوى الدنيا وما فيها ✨",
-  "حبيبتي وبنتي وصاحبتي وكل دنيتي 👑",
-  "بكون أقوى وأهدى وأسعد وأنا معاكي 🫂",
-  "دمتي لقلبي سند وفرحة متزولش أبداً 💗",
-  "بحبك لآخر نفس في عمري يا أماني ♥️"
-]</script>
-<script type="application/json" id="dPhotoDates">[
-  "2026-04-29", "2026-05-01", "2026-05-27", "2026-06-01", "2026-06-26",
-  "2026-06-27", "2026-10-29", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+<!-- الـ 21 صورة بجمل حب مصرية قصيرة بدون تاريخ -->
+<script type="application/json" id="dPhotosList">[
+  {"h":"b","f":"p_3963pbal21.jpg","cap":"بحبك يا أحلى صدفة في عمري ♥🙈"},
+  {"h":"d","f":"p_39631vktz1.jpg","cap":"ضحكتك عندي بالدنيا كلها 😍♥"},
+  {"h":"c","f":"p_39638goh31.jpg","cap":"إنتي عوض ربنا الحلو لقلبي ♥🙈"},
+  {"h":"e","f":"p_3963jiym11.jpg","cap":"مفيش في جمالك ولا حنيتك اتنين 💋♥"},
+  {"h":"f","f":"p_3963q2r8w1.jpg","cap":"قلبي مبيضحكش غير وإنتي جنبي ♥😍"},
+  {"h":"g","f":"p_3963b3jpt1.jpg","cap":"ربنا يخليكي ليا يا نور عيني ♥🙈"},
+  {"h":"h","f":"p_3963rzgqu1.jpg","cap":"إنتي أماني وراحتي وكل دنيتي 🫂♥"},
+  {"h":"i","f":"p_3963hse8m1.jpg","cap":"بموت فيكي وفي كل تفاصيلك 😍💋"},
+  {"h":"j","f":"p_39639zc2i1.jpg","cap":"معاكي عرفت يعني إيه حب بجد ♥🙈"},
+  {"h":"d","f":"p_3963qsmff1.jpg","cap":"يا أجمل بنوتة شافتها عيني ♥😍"},
+  {"h":"f","f":"p_3963z4ph51.jpg","cap":"وجودك في حياتي أكبر نعمة 🤲♥"},
+  {"h":"e","f":"p_3963sbb1y1.jpg","cap":"كل يوم بحبك أكتر من إمبارح ♥🙈"},
+  {"h":"g","f":"p_39631httg1.jpg","cap":"إنتي روحي والحتة الحلوة فيا 😍♥"},
+  {"h":"j","f":"p_3963si0ua1.jpg","cap":"عيوني مبتشوفش غيرك في الدنيا ♥💋"},
+  {"h":"k","f":"p_3963m98441.jpg","cap":"حبيبتي وصاحبتي وبنوتتي الحلوة 👑♥"},
+  {"h":"b","f":"p_39637bx6p1.jpg","cap":"حضنك وكلامك هما أماني وراحتي 🫂♥"},
+  {"h":"c","f":"p_39633ehfb1.jpg","cap":"ضحكتك بتنسيني تعب الدنيا كله ♥🙈"},
+  {"h":"e","f":"p_3963s5cg61.jpg","cap":"إنتي أحلى اختيار اخترته في حياتي 😍♥"},
+  {"h":"d","f":"p_3963e12711.jpg","cap":"يا بسبوستي وفرحة قلبي من جوه ♥💋"},
+  {"h":"j","f":"p_3963de6qa1.jpg","cap":"مقدرش أستغنى عنك ثانية واحدة ♥🙈"},
+  {"h":"k","f":"p_3963gyf5e1.jpg","cap":"هفضل أحبك لآخر نفس في عمري ♥😍"}
 ]</script>
 
+<!-- أول هدية معدلة إلى 9/29 -->
 <script type="application/json" id="dCaptions">[
   {"date": "2026 / 4 / 29", "text": "بداية حكايتنا وأحلى يوم غير حياتي كلها لما عرفتك ♥️🙈"},
   {"date": "2026 / 5 / 1", "text": "احلي تاني يوم اكلمنا فيه ✨♥️"},
   {"date": "2026 / 5 / 27 — 2026 / 6 / 1", "text": "عيد ميلادها وهو والعيد كان ٥/٢٧ ومتسجله عيد ميلادها ٦/١ 🎂🎉"},
   {"date": "2026 / 6 / 26 — 2026 / 6 / 27", "text": "انا قولتلها بحبك ٦/٢٦ وانتي قلتيه ليا يوم ٢٧ 😂🙈♥️"},
-  {"date": "2026 / 10 / 29", "text": "اول هديه مني ليكي يا أغلى هدية في حياتي 🎁💝"}
+  {"date": "2026 / 9 / 29", "text": "اول هديه مني ليكي يا أغلى هدية في حياتي 🎁💝"}
 ]</script>
 
 <script type="application/json" id="dSentences">[
@@ -805,46 +1021,31 @@ body.gate-locked{height:100vh;overflow:hidden}
     catch(e){ return fb; }
   }
 
-  var PHOTOS   = J('dPhotos',[]).filter(Boolean),
-      PCAPS    = J('dPhotoCaps',[]),
-      PDATES   = J('dPhotoDates',[]),
+  var HL       = J('dHlList',[]),
+      PLIST    = J('dPhotosList',[]),
       CAPTIONS = J('dCaptions',[]),
       SENTS    = J('dSentences',[]).filter(Boolean),
       SURLS    = J('dSongUrls',[]).filter(Boolean),
       SNAMES   = J('dSongNames',[]),
-      META     = J('dMeta',{}),
-      HLPHOTOS = J('dHlPhotos',[]).filter(Boolean),
-      HLCAPS   = J('dHlCaps',[]);
+      META     = J('dMeta',{});
 
-  var TONES=["#E07A5F","#83A17B","#D98CA0","#E3A72F","#8C7B9E","#6F9BA8"];
   var $=function(id){return document.getElementById(id)};
 
-  /* ================= الهايلايتس ================= */
-  var HL=HLPHOTOS.map(function(src,i){
-    return { src:src, n:(HLCAPS[i]||'ذكرى '+(i+1)), c:TONES[i%TONES.length] };
-  });
-
+  /* ================= ربط قلوب الاستوري بعارض الاستوري الكبير ================= */
   var strip=$('strip');
-  if(strip && HL.length){
-    HL.forEach(function(o,i){
-      var b=document.createElement('button');
-      b.className='hl'; b.type='button';
-      b.innerHTML='<div class="hl-shape"><div class="hl-frame"></div>'+
-        '<div class="hl-img"><div class="ph" style="background:'+o.c+'"></div></div></div><b></b>';
-      var img=new Image();
-      img.src=o.src; img.alt=''; img.decoding='async';
-      img.referrerPolicy='no-referrer';
-      img.addEventListener('error',function(){ img.remove(); });
-      b.querySelector('.hl-img .ph').appendChild(img);
-      b.querySelector('b').textContent=o.n;
-      b.addEventListener('click',function(){ openV(i); });
-      strip.appendChild(b);
+  var viewer=$('viewer'), stageEl=$('stage'), bars=$('bars'),
+      slideImg=$('slideImg'), mini=$('mini'), vname=$('vname');
+  var vi=0,DUR=4000,elapsed=0,lastTs=0,paused=false,raf=null,curSpan=null,hlBarEls=[];
+
+  if(strip){
+    var btns = strip.querySelectorAll('.hl');
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var idx = parseInt(btn.getAttribute('data-idx') || '0', 10);
+        openV(idx);
+      });
     });
   }
-
-  var viewer=$('viewer'), stageEl=$('stage'), bars=$('bars'),
-      slide=$('slide'), mini=$('mini'), vname=$('vname');
-  var vi=0,DUR=4000,elapsed=0,lastTs=0,paused=false,raf=null,curSpan=null,hlBarEls=[];
 
   function openV(){}
   if(viewer && HL.length){
@@ -865,7 +1066,11 @@ body.gate-locked{height:100vh;overflow:hidden}
     function paintV(){
       cancelAnimationFrame(raf);
       var o=HL[vi];
-      slide.style.background='#2B211A center/cover no-repeat url("'+o.src+'")';
+      slideImg.removeAttribute('data-step');
+      slideImg.onerror = function(){ window.fixImg(slideImg, o.h, o.f); };
+      slideImg.src = (o.h === 'k')
+        ? ('https://wsrv.nl/?url=http://' + o.h + '.top4top.io/' + o.f)
+        : ('https://' + o.h + '.top4top.io/' + o.f);
       mini.style.background=o.c;
       vname.textContent=o.n;
       hlBarEls.forEach(function(el,k){
@@ -873,7 +1078,7 @@ body.gate-locked{height:100vh;overflow:hidden}
         el.querySelector('span').style.width=k<vi?'100%':'0';
       });
       curSpan=hlBarEls[vi].querySelector('span');
-      if(strip.children[vi])strip.children[vi].classList.add('seen');
+      if(strip && strip.children[vi])strip.children[vi].classList.add('seen');
       elapsed=0;lastTs=0;paused=false;
       raf=requestAnimationFrame(tick);
     }
@@ -919,69 +1124,33 @@ body.gate-locked{height:100vh;overflow:hidden}
       it.className='j-item';
       it.innerHTML='<div class="j-card"><span class="j-text"></span>'+
         (dt?'<div><div class="j-date">📅 <span></span></div></div>':'')+'</div>';
-      var tx=it.querySelector('.j-text');
-      var words=String(txt).trim().split(/\s+/);
-      words.forEach(function(w,k){
-        var sp=document.createElement('span');
-        sp.className='w'; sp.textContent=w;
-        sp.style.transitionDelay=(0.12+k*0.045)+'s';
-        tx.appendChild(sp);
-        if(k<words.length-1)tx.appendChild(document.createTextNode(' '));
-      });
+      it.querySelector('.j-text').textContent=txt;
       if(dt){
         it.querySelector('.j-date span').textContent=dt;
-        it.querySelector('.j-date').style.transitionDelay=(0.2+words.length*0.045)+'s';
       }
       jw.appendChild(it);
     });
   }
 
-  if('IntersectionObserver' in window){
-    var rvBoxes=document.querySelectorAll('.sec-h, .chat, .scatter, .tape-player, .count, .scratch-stage, .vid-grid');
-    rvBoxes.forEach(function(b){ b.classList.add('rv') });
-    var rio=new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } });
-    },{threshold:.1,rootMargin:'0px 0px -30px 0px'});
-    var jio=new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); jio.unobserve(e.target); } });
-    },{threshold:.35,rootMargin:'0px 0px -15% 0px'});
-    requestAnimationFrame(function(){
-      rvBoxes.forEach(function(t){ rio.observe(t) });
-      document.querySelectorAll('.j-item').forEach(function(j){ jio.observe(j) });
-    });
-  }else{
-    document.querySelectorAll('.j-item').forEach(function(j){ j.classList.add('in') });
-  }
-
-  /* ================= كروت الصور البولارويد (الـ 21 صورة) ================= */
+  /* ================= كروت الصور البولارويد (بدون تاريخ) ================= */
   var sc=$('scatter');
-  if(sc && PHOTOS.length){
-    PHOTOS.forEach(function(src, i){
-      var cap=PCAPS[i]||'', dt=PDATES[i]||'';
+  if(sc && PLIST.length){
+    PLIST.forEach(function(item, i){
+      var cap=item.cap||'';
       var b=document.createElement('button');
       b.className='pol'; b.type='button';
       b.innerHTML='<div class="pol-in">'+
         '<div class="face"><div class="ph media-ph"></div></div>'+
-        '<div class="face back"><div class="d"></div><div class="t"></div></div></div>';
+        '<div class="face back"><div class="t"></div></div></div>';
       var img=new Image();
-      img.src=src; img.alt='صورتنا '+(i+1); img.className='ph-img';
-      img.decoding='async';
-      img.referrerPolicy='no-referrer';
-      img.addEventListener('error',function(){
-        if(!img.dataset.fb){
-          img.dataset.fb='1';
-          img.src=src.replace('https://wsrv.nl/?url=http://','https://i0.wp.com/');
-        }
-      });
+      img.alt='صورتنا '+(i+1); img.className='ph-img';
+      img.onerror = function(){ window.fixImg(img, item.h, item.f); };
+      img.src = (item.h === 'k')
+        ? ('https://wsrv.nl/?url=http://' + item.h + '.top4top.io/' + item.f)
+        : ('https://' + item.h + '.top4top.io/' + item.f);
       b.querySelector('.face .ph').appendChild(img);
-      var dEl=b.querySelector('.back .d');
-      if(dt){ dEl.textContent=dt; } else { dEl.remove(); }
       var tEl=b.querySelector('.back .t');
-      if(cap){ tEl.textContent=cap; } else { tEl.remove(); }
-      if(tEl.parentNode){
-        var L=cap.length;
-        tEl.style.fontSize=(L<=45?20:L<=85?18:15)+'px';
-      }
+      if(cap){ tEl.textContent=cap; }
       b.addEventListener('click',function(){ b.classList.toggle('flip') });
       sc.appendChild(b);
     });
@@ -1014,38 +1183,33 @@ body.gate-locked{height:100vh;overflow:hidden}
     showAllChatBtn.addEventListener('click', finishAllChat);
   }
 
-  if(stream && SENTS.length){
-    var stepChat=function(){
-      if(ci>=SENTS.length){
-        if(showAllChatBtn) showAllChatBtn.classList.add('hidden');
-        return;
-      }
-      var raw=String(SENTS[ci]);
-      var isMe=/^\s*>/.test(raw);
-      var typ=document.createElement('div');
-      typ.className='typing'+(isMe?' hidden':''); typ.innerHTML='<i></i><i></i><i></i>';
-      stream.appendChild(typ);
-      chatTimer=setTimeout(function(){
-        typ.remove();
-        appendChatMsg(raw);
-        ci++;
-        if(ci>=SENTS.length && showAllChatBtn) showAllChatBtn.classList.add('hidden');
-        else chatTimer=setTimeout(stepChat, 950);
-      }, 900);
-    };
-    if('IntersectionObserver' in window){
-      var cio=new IntersectionObserver(function(e){
-        if(e[0].isIntersecting && !chatStarted){
-          chatStarted=true; setTimeout(stepChat,350); cio.disconnect();
-        }
-      },{threshold:.2});
-      cio.observe($('chat'));
-    }else{
-      finishAllChat();
+  var stepChat=function(){
+    if(ci>=SENTS.length){
+      if(showAllChatBtn) showAllChatBtn.classList.add('hidden');
+      return;
+    }
+    var raw=String(SENTS[ci]);
+    var isMe=/^\s*>/.test(raw);
+    var typ=document.createElement('div');
+    typ.className='typing'+(isMe?' hidden':''); typ.innerHTML='<i></i><i></i><i></i>';
+    stream.appendChild(typ);
+    chatTimer=setTimeout(function(){
+      typ.remove();
+      appendChatMsg(raw);
+      ci++;
+      if(ci>=SENTS.length && showAllChatBtn) showAllChatBtn.classList.add('hidden');
+      else chatTimer=setTimeout(stepChat, 950);
+    }, 900);
+  };
+
+  function startChatIfNeeded(){
+    if(!chatStarted && stream && SENTS.length){
+      chatStarted = true;
+      setTimeout(stepChat, 300);
     }
   }
 
-  /* ================= الأغنية والفيديوهات (توقف واستئناف تلقائي) ================= */
+  /* ================= الأغنية والفيديوهات ================= */
   var audio=$('song'), playing=false, idx=0, wasMusicPlayingBeforeVideo=false;
   var memoryVideos = document.querySelectorAll('.memory-video');
   var discEls=[$('disc'),$('miniDisc')].filter(Boolean);
@@ -1200,6 +1364,7 @@ body.gate-locked{height:100vh;overflow:hidden}
   var cx2=cv?cv.getContext('2d'):null, scratched=false, drawing=false, moveCount=0;
 
   function paintCover(){
+    if(!stg || !cv || !cx2 || scratched)return;
     var r=stg.getBoundingClientRect();
     if(!r.width||!r.height)return;
     cv.width=r.width*devicePixelRatio; cv.height=r.height*devicePixelRatio;
@@ -1224,11 +1389,13 @@ body.gate-locked{height:100vh;overflow:hidden}
   }
   function burst(){
     var r=stg.getBoundingClientRect();
+    var cx = r.width ? (r.left+r.width/2) : (window.innerWidth/2);
+    var cy = r.height ? (r.top+r.height/2) : (window.innerHeight/2);
     for(var i=0;i<18;i++){
       var el=document.createElement('div');
-      el.textContent=['♥️','✨','💗'][i%3];
+      el.textContent=['♥️','🙈','💗'][i%3];
       var dx=(Math.random()-.5)*320, dy=(Math.random()-.5)*260;
-      el.style.cssText='position:fixed;left:'+(r.left+r.width/2)+'px;top:'+(r.top+r.height/2)+
+      el.style.cssText='position:fixed;left:'+cx+'px;top:'+cy+
         'px;font-size:'+(16+Math.random()*20)+'px;pointer-events:none;z-index:9999;'+
         'transform:translate(-50%,-50%);transition:all 1.1s cubic-bezier(.25,.46,.45,.94);opacity:1;';
       document.body.appendChild(el);
@@ -1242,6 +1409,7 @@ body.gate-locked{height:100vh;overflow:hidden}
     }
   }
   function checkProgress(){
+    if(!cv.width || !cv.height) return;
     var img=cx2.getImageData(0,0,cv.width,cv.height).data;
     var clear=0,stepN=64;
     for(var i=3;i<img.length;i+=4*stepN){ if(img[i]===0)clear++; }
@@ -1250,9 +1418,6 @@ body.gate-locked{height:100vh;overflow:hidden}
     }
   }
   if(cx2){
-    paintCover();
-    if(document.fonts&&document.fonts.ready)
-      document.fonts.ready.then(function(){ if(!scratched)paintCover() });
     addEventListener('resize',function(){ if(!scratched)paintCover() });
     cv.addEventListener('pointerdown',function(e){
       drawing=true; hnt.style.opacity='0'; scratchAt(e.clientX,e.clientY);
@@ -1267,6 +1432,48 @@ body.gate-locked{height:100vh;overflow:hidden}
       drawing=false;
     });
   }
+
+  /* ================= التنقل بين الصفحات الـ 5 المستقلة ================= */
+  var allPages = document.querySelectorAll('.book-page');
+  var allTabBtns = document.querySelectorAll('.tab-btn');
+  var allGotoBtns = document.querySelectorAll('[data-goto]');
+
+  function showBookPage(num){
+    var target = String(num);
+    if(target !== '4'){
+      memoryVideos.forEach(function(v){ if(!v.paused) v.pause(); });
+    }
+    allPages.forEach(function(p){
+      p.classList.toggle('active', p.getAttribute('data-page') === target);
+    });
+    allTabBtns.forEach(function(b){
+      var isAct = b.getAttribute('data-target') === target;
+      b.classList.toggle('active', isAct);
+      if(isAct && b.scrollIntoView){
+        b.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      }
+    });
+    window.scrollTo({top: 0, behavior: 'smooth'});
+
+    if(target === '2'){
+      startChatIfNeeded();
+    }
+    if(target === '5' && !scratched){
+      setTimeout(paintCover, 60);
+    }
+  }
+
+  allTabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      showBookPage(btn.getAttribute('data-target'));
+    });
+  });
+
+  allGotoBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      showBookPage(btn.getAttribute('data-goto'));
+    });
+  });
 
   /* الزر الأخير للرسالة الإضافية */
   var finalGiftBtn = $('finalGiftBtn'), finalGiftCard = $('finalGiftCard');
@@ -1325,15 +1532,14 @@ body.gate-locked{height:100vh;overflow:hidden}
     if(cur)lines.push(cur);
     return lines;
   }
-  function loadImg(src){
+  function loadImg(item){
     return new Promise(function(res){
-      if(!src)return res(null);
+      if(!item)return res(null);
       var im=new Image();
       im.crossOrigin='anonymous';
-      im.referrerPolicy='no-referrer';
       im.onload=function(){res(im)};
       im.onerror=function(){res(null)};
-      im.src=src;
+      im.src='https://wsrv.nl/?url=http://'+item.h+'.top4top.io/'+item.f;
     });
   }
   function coverDraw(im,x,y,w,h){
@@ -1344,8 +1550,6 @@ body.gate-locked{height:100vh;overflow:hidden}
   }
 
   function drawCard(im){
-    var pool=PHOTOS;
-    var pi=Math.floor(Math.random()*Math.max(pool.length,1));
     var capObj=CAPTIONS.length?pick(CAPTIONS):null;
     var line=capObj?((capObj.text||capObj.t)||''):'كل لحظة معاكي هي عمر جديد ♥️';
     var lineDate=capObj?((capObj.date||capObj.d)||''):'2026 / 4 / 29';
@@ -1382,7 +1586,7 @@ body.gate-locked{height:100vh;overflow:hidden}
     cc.save();
     roundRect(-346,-296,692,620,4); cc.clip();
     if(im){ coverDraw(im,-346,-296,692,620); }
-    else { cc.fillStyle=TONES[pi%TONES.length]; cc.fillRect(-346,-296,692,620); }
+    else { cc.fillStyle='#E07A5F'; cc.fillRect(-346,-296,692,620); }
     cc.restore();
     cc.restore();
 
@@ -1416,8 +1620,8 @@ body.gate-locked{height:100vh;overflow:hidden}
   }
 
   function showCard(){
-    var src=PHOTOS.length?pick(PHOTOS):null;
-    loadImg(src).then(function(im){
+    var item=PLIST.length?pick(PLIST):null;
+    loadImg(item).then(function(im){
       try{
         drawCard(im);
         cvC.toBlob(function(blob){
@@ -1482,7 +1686,7 @@ body.gate-locked{height:100vh;overflow:hidden}
     if(!norm(pw.value)){ pw.focus(); return; }
     sent = true;
     if(allowed.map(norm).indexOf(norm(pw.value)) === -1){
-      err.innerHTML = '<b>الباسورد غلط يروحي جربي تاني ♥️</b>';
+      err.innerHTML = '<b>الباسورد غلط يروحي جربي تاني ♥️🙈</b>';
       book.classList.add('shake');
       setTimeout(function(){ book.classList.remove('shake'); sent = false; }, 520);
       return;
